@@ -42,9 +42,4 @@ namespace GeneticApproach.Implementations
             return GetFitness().CompareTo(other?.GetFitness());
         }
     }
-
-    public interface IGeneGenerator<Gene> where Gene : IRandomGenerable<Gene>
-    {
-        public IEnumerable<Gene> RandomGenes();  
-    }
 }
