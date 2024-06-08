@@ -17,9 +17,9 @@ namespace GeneticApproach.Implementations
             _geneGenerator = geneGenerator;
             _constraints = constraints;
             GenesSequence = [];
-            foreach (var gene in _geneGenerator.RandomGenes())
+            for (int i = 0; i < size; i++)
             {
-                GenesSequence.Add(gene);
+                GenesSequence.Add(_geneGenerator.RandomGenes().First());   
             }
         }
 

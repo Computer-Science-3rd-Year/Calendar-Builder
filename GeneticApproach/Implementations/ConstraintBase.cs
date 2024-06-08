@@ -3,7 +3,7 @@ using GeneticApproach.Interfaces;
 
 namespace GeneticApproach.Implementations
 {
-    class ConstraintBase<Gene> : AbstractConstraint<Chromosome<Gene>, Gene> where Gene : IRandomGenerable<Gene>
+    public class ConstraintBase<Gene> : AbstractConstraint<Chromosome<Gene>, Gene> where Gene : IRandomGenerable<Gene>
     {
         public override double GetConstraintValue(Chromosome<Gene> chromosome)
         {
