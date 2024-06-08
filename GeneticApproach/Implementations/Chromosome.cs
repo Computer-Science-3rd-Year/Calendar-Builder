@@ -9,11 +9,13 @@ namespace GeneticApproach.Implementations
         public override List<Gene> GenesSequence { get; set; }
         private readonly int _size;
         private readonly IGeneGenerator<Gene> _geneGenerator;
+        private readonly IEnumerable<AbstractConstraint<Chromosome<Gene>, Gene>> _constraints;
 
-        public Chromosome(int size, IGeneGenerator<Gene> geneGenerator)
+        public Chromosome(int size, IGeneGenerator<Gene> geneGenerator, IEnumerable<AbstractConstraint<Chromosome<Gene>,Gene>> constraints)
         {
             _size = size;
             _geneGenerator = geneGenerator;
+            _constraints = constraints;
             GenesSequence = [];
             foreach (var gene in _geneGenerator.RandomGenes())
             {
@@ -21,9 +23,9 @@ namespace GeneticApproach.Implementations
             }
         }
 
-        public override double GetFitness(IEnumerable<AbstractConstraint<AbstractChromosome<Gene>, Gene>> constraints)
+        public override double GetFitness()
         {
-            return constraints.Sum(x => x.GetConstraintValue(this));
+            return _constraints.Sum(x => x.GetConstraintValue(this));
         }
 
         public override void Mutate()
@@ -34,6 +36,10 @@ namespace GeneticApproach.Implementations
             {
                 GenesSequence[i] = _geneGenerator.RandomGenes().First();
             }
+        }
+        public override int CompareTo(AbstractChromosome<Gene>? other)
+        {
+            return GetFitness().CompareTo(other?.GetFitness());
         }
     }
 
