@@ -8,7 +8,15 @@ namespace GeneticApproach.Domain
     {
         public List<string> ActiveConstraints { get; set; } = new List<string>();
         private readonly int _size;
-
+        
+        public Chromosome(List<T> initialValues) : base(initialValues.Count)
+        {
+            for (int i = 0; i < initialValues.Count; i++)
+            {
+                ReplaceGene(i, new Gene(initialValues[i]));
+            }
+            _size = initialValues.Count;
+        } 
         public Chromosome(int size) : base(size)
         {
             for (int i = 0; i < Length; i++)
