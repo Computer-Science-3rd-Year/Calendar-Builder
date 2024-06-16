@@ -2,66 +2,16 @@ using GeneticApproach.Domain;
 using GeneticApproach.Extensions;
 using GeneticSharp;
 
-class Runner
+public interface IGeneticService<T> where T : IRandomGenerable<T>
 {
-    class testClass : IRandomGenerable<testClass>
+    IEnumerable<GeneticResults> Evolution(IEnumerable<GeneticConstraint<T>> constraints, GeneticOptions options); 
+}
+
+public class GeneticService<T> : IGeneticService<T> where T : IRandomGenerable<T>
+{
+    public IEnumerable<GeneticResults> Evolution(IEnumerable<GeneticConstraint<T>> constraints, GeneticOptions options)
     {
-        public static testClass GenerateRandom()
-        {
-            return new testClass(){
-                Value = new Random().Next(0,6)
-            };
-        }
-
-        public static void Draw(testClass target)
-        {
-            Console.Write(target.Value + " "); 
-        }
-
-        public int Value { get; set; }
-    }
-    public Runner()
-    {
-        Run(); 
-    }
-
-    public void Run()
-    {
-        Console.SetError(TextWriter.Null);
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine("GeneticSharp - ConsoleApp");
-        Console.ResetColor();
-        Console.WriteLine("Select the sample:");
-
-        List<GeneticConstraint<testClass>> cons = new List<GeneticConstraint<testClass>>(){
-            new GeneticConstraint<testClass>("not even", x => {
-                double fitness = 0.0;
-                var arr = x.GetGenes();
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if((arr[i].Value as testClass).Value % 2 == 0)
-                    {
-                        fitness += 1;
-                    }
-                }
-                return fitness;            
-            }),
-            new GeneticConstraint<testClass>("not consecutive", x => {
-                double fitness = 0.0;
-                var arr = x.GetGenes();
-                for (int i = 0; i < arr.Length-1; i++)
-                {
-                    if(Math.Abs((arr[i].Value as testClass).Value - (arr[i+1].Value as testClass).Value) <= 1)
-                    {
-                        fitness += 1;
-                    }
-                }
-                return fitness;
-            }),
-        };
-
-        var sampleController = new GeneticController<testClass>(20,cons);
+        var sampleController = new GeneticController<T>(20,constraints,0);
         sampleController.Initialize();
 
         Console.WriteLine("Starting...");
@@ -101,7 +51,7 @@ class Runner
             Console.WriteLine("Error: {0}", ex.Message);
             Console.ResetColor();
             Console.ReadKey();
-            return;
+            
         }
 
         Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -109,6 +59,18 @@ class Runner
         Console.WriteLine("Evolved.");
         Console.ResetColor();
         Console.ReadKey();
-        Run();
+
+        yield return new GeneticResults(){
+            sol = ga.Population.BestChromosome.GetGenes()
+        };
     }
+}
+
+public class GeneticOptions
+{
+
+}
+public class GeneticResults
+{
+    public Gene[] sol;
 }
