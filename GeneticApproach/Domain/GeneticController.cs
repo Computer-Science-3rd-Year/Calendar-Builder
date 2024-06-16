@@ -3,19 +3,21 @@ using GeneticSharp;
 
 namespace GeneticApproach.Domain
 {
-    class GeneticController<T> : SampleControllerBase
+    internal class GeneticController<Base, T> : SampleControllerBase
         where T : IRandomGenerable<T>
     {
         private readonly int _size;
-        private readonly IEnumerable<GeneticConstraint<T>> _constraints;
+        private readonly IEnumerable<BaseConstraint<Base>> _constraints;
         private readonly int _fitnessThresholdTermination;
-        private Fitness<T> m_fitness = null!;
+        private readonly IChromosomeFactory<T, Base> _factory;
+        private Fitness<T,Base> m_fitness = null!;
 
-        public GeneticController(int chromosomesGenesSequenceSize, IEnumerable<GeneticConstraint<T>> constraints, int fitnessThresholdTermination)
+        public GeneticController(int chromosomesGenesSequenceSize, IEnumerable<BaseConstraint<Base>> constraints, int fitnessThresholdTermination,IChromosomeFactory<T,Base> factory)
         {
             _size = chromosomesGenesSequenceSize;
             _constraints = constraints;
             _fitnessThresholdTermination = fitnessThresholdTermination;
+            _factory = factory;
         }
         public override IChromosome CreateChromosome()
         {
@@ -24,7 +26,7 @@ namespace GeneticApproach.Domain
 
         public override IFitness CreateFitness()
         {
-            m_fitness = new Fitness<T>(_constraints);
+            m_fitness = new Fitness<T,Base>(_constraints, _factory);
             return m_fitness;
         }
 

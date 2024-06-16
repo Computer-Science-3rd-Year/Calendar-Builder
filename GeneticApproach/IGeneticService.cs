@@ -2,16 +2,16 @@ using GeneticApproach.Domain;
 using GeneticApproach.Extensions;
 using GeneticSharp;
 
-public interface IGeneticService<T> where T : IRandomGenerable<T>
+public interface IGeneticService<T, Base> where T : IRandomGenerable<T>
 {
-    IEnumerable<GeneticResults> Evolution(IEnumerable<GeneticConstraint<T>> constraints, GeneticOptions options); 
+    IEnumerable<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options, IChromosomeFactory<T,Base> factory); 
 }
 
-public class GeneticService<T> : IGeneticService<T> where T : IRandomGenerable<T>
+public class GeneticService<T,Base> : IGeneticService<T, Base> where T : IRandomGenerable<T>
 {
-    public IEnumerable<GeneticResults> Evolution(IEnumerable<GeneticConstraint<T>> constraints, GeneticOptions options)
+    public IEnumerable<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options,  IChromosomeFactory<T,Base> factory)
     {
-        var sampleController = new GeneticController<T>(20,constraints,0);
+        var sampleController = new GeneticController<Base,T>(20,constraints,0, factory);
         sampleController.Initialize();
 
         Console.WriteLine("Starting...");
@@ -64,13 +64,4 @@ public class GeneticService<T> : IGeneticService<T> where T : IRandomGenerable<T
             sol = ga.Population.BestChromosome.GetGenes()
         };
     }
-}
-
-public class GeneticOptions
-{
-
-}
-public class GeneticResults
-{
-    public Gene[] sol;
 }
