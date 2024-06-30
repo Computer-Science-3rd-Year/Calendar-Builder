@@ -6,6 +6,7 @@ public class CalendarBuilderDbContext : DbContext, IApplicationDbContext
 {
     public CalendarBuilderDbContext(DbContextOptions<CalendarBuilderDbContext> options): base(options){}
     public DbSet<Sport> Sports { get; set; }
+    public DbSet<CoincidenceRestriction> CoincidenceRestrictions { get; set; }
 
     Task IApplicationDbContext.SaveChangesAsync(CancellationToken cancellationToken)
     {
@@ -26,6 +27,7 @@ public class CalendarBuilderDbContext : DbContext, IApplicationDbContext
         return nameType switch
         {
             nameof(Sport) => (Sports as DbSet<T>)!,
+            nameof(CoincidenceRestriction) => (CoincidenceRestrictions as DbSet<T>)!,
             _ => throw new ArgumentException("Unsupported type with name: " + nameType),
         };
     }

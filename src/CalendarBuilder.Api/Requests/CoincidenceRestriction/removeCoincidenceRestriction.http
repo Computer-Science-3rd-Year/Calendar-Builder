@@ -1,0 +1,8 @@
+@host=http://localhost:5020
+
+DELETE {{host}}/coincidenceRestrictions
+Content-Type: application/json
+
+{
+    "id": "1b8c065f-a6ab-41ca-838c-992457efa7e2"
+}

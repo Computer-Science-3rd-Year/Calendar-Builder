@@ -1,0 +1,12 @@
+@host=http://localhost:5020
+
+POST {{host}}/coincidenceRestrictions
+Content-Type: application/json
+
+{
+    "CreateModel": {
+        "sessionsGap": 0,
+        "firstSportId": "123e4567-e89b-12d3-a456-426614174000",
+        "secondSportId" : "501d5221-a492-4800-8746-50bdb11585b5"
+   }
+}

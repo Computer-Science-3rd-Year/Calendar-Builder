@@ -3,6 +3,7 @@ using System;
 using CalendarBuilder.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CalendarBuilder.Infrastructure.Migrations
 {
     [DbContext(typeof(CalendarBuilderDbContext))]
-    partial class CalendarBuilderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240630125826_AddCoincidenceRestriction")]
+    partial class AddCoincidenceRestriction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace CalendarBuilder.Infrastructure.Migrations
 
                     b.Property<Guid>("FirstSportId")
                         .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
 
                     b.Property<Guid>("SecondSportId")
                         .HasColumnType("uuid");
