@@ -1,0 +1,10 @@
+@host=http://localhost:5020
+
+POST {{host}}/sports
+Content-Type: application/json
+
+{
+    "CreateModel": {
+        "Name": "Pelota"
+    }
+}

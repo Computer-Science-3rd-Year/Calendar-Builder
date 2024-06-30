@@ -1,0 +1,11 @@
+@host=http://localhost:5020
+
+PUT {{host}}/sports
+Content-Type: application/json
+
+{
+    "UpdateModel": {
+        "Name": "Futbol"
+    },
+    "id": "dd3ee1c0-39c2-4457-9e27-1f520090ba50"
+}
