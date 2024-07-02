@@ -3,6 +3,7 @@ using System;
 using CalendarBuilder.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CalendarBuilder.Infrastructure.Migrations
 {
     [DbContext(typeof(CalendarBuilderDbContext))]
-    partial class CalendarBuilderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702024052_ChangeCalendarDayEntityStructure")]
+    partial class ChangeCalendarDayEntityStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,33 +97,6 @@ namespace CalendarBuilder.Infrastructure.Migrations
                     b.ToTable("CoincidenceRestrictions");
                 });
 
-            modelBuilder.Entity("QuantityRestriction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CalendarId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("SportId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalendarId");
-
-                    b.HasIndex("SportId");
-
-                    b.ToTable("QuantityRestrictions");
-                });
-
             modelBuilder.Entity("Sport", b =>
                 {
                     b.Property<Guid>("Id")
@@ -180,25 +156,6 @@ namespace CalendarBuilder.Infrastructure.Migrations
                     b.Navigation("FirstSport");
 
                     b.Navigation("SecondSport");
-                });
-
-            modelBuilder.Entity("QuantityRestriction", b =>
-                {
-                    b.HasOne("Calendar", "Calendar")
-                        .WithMany()
-                        .HasForeignKey("CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Calendar");
-
-                    b.Navigation("Sport");
                 });
 
             modelBuilder.Entity("Calendar", b =>

@@ -1,0 +1,12 @@
+@host=http://localhost:5020
+
+POST {{host}}/build
+Content-Type: application/json
+
+{
+    "id": "4c116b13-9e72-4a0d-87a6-ea01c174627a",
+    "CreateModel" : {
+        "StartDate": "2024-07-01T00:00:00",
+        "EndDate": "2024-07-06T00:00:00"    
+    }
+}

@@ -2,6 +2,8 @@ using System.Text.Json;
 using CalendarBuilder.Domain.Common;
 public class CoincidenceRestriction : BaseEntity
 {
+    public Guid CalendarId { get; set; }
+    public Calendar Calendar { get; set; }
     public int SessionsGap { get; set; }
     public bool IsActive { get; set; }
     public Guid FirstSportId { get; set; }
@@ -23,6 +25,7 @@ public class CoincidenceRestriction : BaseEntity
         SecondSportId = model!.SecondSportId; 
         SessionsGap = model!.SessionsGap; 
         IsActive = model!.IsActive; 
+        CalendarId = model!.CalendarId; 
         return (this as T)!;    
     }
 
@@ -40,6 +43,7 @@ public class CoincidenceRestriction : BaseEntity
         SecondSportId = model!.SecondSportId ?? SecondSportId; 
         SessionsGap = model!.SessionsGap ?? SessionsGap; 
         IsActive = model!.IsActive ?? IsActive; 
+        CalendarId = model!.CalendarId ?? CalendarId; 
         return (this as T)!;            
     }
 }
@@ -49,6 +53,7 @@ class CoincidenceRestrictionCreateModel
     public Guid FirstSportId { get; set; }
     public Guid SecondSportId { get; set; }
     public bool IsActive { get; set; }
+    public Guid CalendarId { get; set; }
 } 
 class CoincidenceRestrictionUpdateModel
 {
@@ -56,4 +61,5 @@ class CoincidenceRestrictionUpdateModel
     public Guid? FirstSportId { get; set; }
     public Guid? SecondSportId { get; set; }
     public bool? IsActive { get; set; }
+    public Guid? CalendarId { get; set; }
 } 

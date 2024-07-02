@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CalendarBuilder.Application\CalendarBuilder.Application.csproj" />
     <ProjectReference Include="..\CalendarBuilder.Infrastructure\CalendarBuilder.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\GeneticApproach\GeneticApproach.csproj" />
   </ItemGroup>
 
 </Project>

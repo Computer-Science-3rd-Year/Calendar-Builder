@@ -10,4 +10,8 @@
     <PackageReference Include="MediatR" Version="12.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\GeneticApproach\GeneticApproach.csproj" />
+  </ItemGroup>
+
 </Project>

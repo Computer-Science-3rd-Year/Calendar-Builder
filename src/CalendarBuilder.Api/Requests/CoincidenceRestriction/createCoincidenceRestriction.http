@@ -5,8 +5,9 @@ Content-Type: application/json
 
 {
     "CreateModel": {
-        "sessionsGap": 0,
-        "firstSportId": "123e4567-e89b-12d3-a456-426614174000",
-        "secondSportId" : "501d5221-a492-4800-8746-50bdb11585b5"
+        "sessionsGap": 2,
+        "firstSportId": "5beb71b2-b94f-4ceb-a6bc-004ca93b07a9",
+        "secondSportId" : "a06dfb42-551a-4986-9629-4a947266921b",
+        "calendarId": "4c116b13-9e72-4a0d-87a6-ea01c174627a"
    }
 }

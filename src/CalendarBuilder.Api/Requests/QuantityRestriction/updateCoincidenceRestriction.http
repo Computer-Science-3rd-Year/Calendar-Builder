@@ -1,11 +1,11 @@
 @host=http://localhost:5020
 
-PUT {{host}}/coincidenceRestrictions
+PUT {{host}}/quantityRestrictions
 Content-Type: application/json
 
 {
     "UpdateModel": {
         "isActive": true
     },
-    "id": "f04df9c4-78f6-4485-b32c-54398035d02c"
+    "id": "2908ada6-0610-4f78-a7d9-59c462dbde68"
 }

@@ -30,7 +30,7 @@ namespace CalendarBuilder.Application.Common.GenericCrud
             IQueryable<Entity> query = dbSet; 
             foreach (var includeStatement in _includes)
             {
-                query = query.Include(includeStatement);    
+                query = query.Include(includeStatement); 
             }
             return await query.ToListAsync(cancellationToken);            
         }

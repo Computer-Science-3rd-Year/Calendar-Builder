@@ -20,7 +20,7 @@ namespace CalendarBuilder.Application.Common.GenericCrud
             _context = context;
             _logger = logger;
         }
-        public async Task<Entity> Handle(GenericCreateCommand<Entity> request, CancellationToken cancellationToken)
+        public virtual async Task<Entity> Handle(GenericCreateCommand<Entity> request, CancellationToken cancellationToken)
         {
             var entity = new Entity();
             entity.Initialize<Entity>(request.CreateModel);  

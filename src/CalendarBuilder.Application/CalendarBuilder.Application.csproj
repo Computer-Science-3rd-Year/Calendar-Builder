@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CalendarBuilder.Domain\CalendarBuilder.Domain.csproj" />
+    <ProjectReference Include="..\..\GeneticApproach\GeneticApproach.csproj" />
   </ItemGroup>
 
   <ItemGroup>

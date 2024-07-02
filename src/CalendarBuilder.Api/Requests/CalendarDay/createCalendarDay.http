@@ -1,0 +1,9 @@
+@host=http://localhost:5020
+
+POST {{host}}/calendarDays
+Content-Type: application/json
+
+{
+    "CreateModel": {
+        }
+}

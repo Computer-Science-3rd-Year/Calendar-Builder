@@ -1,4 +1,5 @@
 
+using CalendarBuilder.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace CalendarBuilder.Infrastructure
             services.AddDbContext<CalendarBuilderDbContext>(options =>
                 options.UseNpgsql(connectionString)
             );
+            services.AddScoped<RandomGenerableFactory>();             
+            services.AddScoped<IGeneticApproachWrapper, GeneticApproachWrapper>(); 
             services.AddScoped<IApplicationDbContext, CalendarBuilderDbContext>();
             return services;
         }

@@ -3,6 +3,7 @@ using System;
 using CalendarBuilder.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CalendarBuilder.Infrastructure.Migrations
 {
     [DbContext(typeof(CalendarBuilderDbContext))]
-    partial class CalendarBuilderDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240630143904_AddCalendarDayEntity")]
+    partial class AddCalendarDayEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,20 +24,6 @@ namespace CalendarBuilder.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Calendar", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Calendars");
-                });
 
             modelBuilder.Entity("CalendarDay", b =>
                 {
@@ -45,7 +34,7 @@ namespace CalendarBuilder.Infrastructure.Migrations
                     b.Property<Guid?>("AfterNoonSessionSportId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CalendarId")
+                    b.Property<Guid?>("FullSessionSportId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("MorningSessionSportId")
@@ -55,7 +44,7 @@ namespace CalendarBuilder.Infrastructure.Migrations
 
                     b.HasIndex("AfterNoonSessionSportId");
 
-                    b.HasIndex("CalendarId");
+                    b.HasIndex("FullSessionSportId");
 
                     b.HasIndex("MorningSessionSportId");
 
@@ -66,9 +55,6 @@ namespace CalendarBuilder.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CalendarId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("FirstSportId")
@@ -85,40 +71,11 @@ namespace CalendarBuilder.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CalendarId");
-
                     b.HasIndex("FirstSportId");
 
                     b.HasIndex("SecondSportId");
 
                     b.ToTable("CoincidenceRestrictions");
-                });
-
-            modelBuilder.Entity("QuantityRestriction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CalendarId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("SportId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CalendarId");
-
-                    b.HasIndex("SportId");
-
-                    b.ToTable("QuantityRestrictions");
                 });
 
             modelBuilder.Entity("Sport", b =>
@@ -142,9 +99,9 @@ namespace CalendarBuilder.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("AfterNoonSessionSportId");
 
-                    b.HasOne("Calendar", null)
-                        .WithMany("CalendarDays")
-                        .HasForeignKey("CalendarId");
+                    b.HasOne("Sport", "FullSessionSport")
+                        .WithMany()
+                        .HasForeignKey("FullSessionSportId");
 
                     b.HasOne("Sport", "MorningSessionSport")
                         .WithMany()
@@ -152,17 +109,13 @@ namespace CalendarBuilder.Infrastructure.Migrations
 
                     b.Navigation("AfterNoonSessionSport");
 
+                    b.Navigation("FullSessionSport");
+
                     b.Navigation("MorningSessionSport");
                 });
 
             modelBuilder.Entity("CoincidenceRestriction", b =>
                 {
-                    b.HasOne("Calendar", "Calendar")
-                        .WithMany()
-                        .HasForeignKey("CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sport", "FirstSport")
                         .WithMany()
                         .HasForeignKey("FirstSportId")
@@ -175,35 +128,9 @@ namespace CalendarBuilder.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Calendar");
-
                     b.Navigation("FirstSport");
 
                     b.Navigation("SecondSport");
-                });
-
-            modelBuilder.Entity("QuantityRestriction", b =>
-                {
-                    b.HasOne("Calendar", "Calendar")
-                        .WithMany()
-                        .HasForeignKey("CalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Sport", "Sport")
-                        .WithMany()
-                        .HasForeignKey("SportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Calendar");
-
-                    b.Navigation("Sport");
-                });
-
-            modelBuilder.Entity("Calendar", b =>
-                {
-                    b.Navigation("CalendarDays");
                 });
 #pragma warning restore 612, 618
         }

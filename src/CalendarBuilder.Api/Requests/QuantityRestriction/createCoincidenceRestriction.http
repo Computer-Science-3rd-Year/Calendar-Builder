@@ -1,0 +1,12 @@
+@host=http://localhost:5020
+
+POST {{host}}/quantityRestrictions
+Content-Type: application/json
+
+{
+    "CreateModel": {
+        "quantity": 2,
+        "sportId": "5beb71b2-b94f-4ceb-a6bc-004ca93b07a9",
+        "calendarId": "4c116b13-9e72-4a0d-87a6-ea01c174627a"
+   }
+}

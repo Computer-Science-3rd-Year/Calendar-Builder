@@ -25,6 +25,10 @@ namespace CalendarBuilder.Application.Common.GenericCrud
         public async Task<Entity> Handle(GenericUpdateCommand<Entity> request, CancellationToken cancellationToken)
         {
             var entity = await _context.GetDbSet<Entity>().FirstOrDefaultAsync(x => x.Id == request.Id);
+            if (entity == null)
+            {
+                throw new Exception("Not found"); 
+            }
             entity.Update<Entity>(request.UpdateModel);  
             var newEntity = _context.GetDbSet<Entity>().Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
