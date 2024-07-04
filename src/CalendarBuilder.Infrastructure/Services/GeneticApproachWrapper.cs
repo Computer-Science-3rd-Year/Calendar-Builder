@@ -31,13 +31,18 @@ namespace CalendarBuilder.Infrastructure.Services
                     .ToListAsync();
                 sports.Add(null); 
                 var rand = new Random();
-                int index = rand.Next(0,calendar.CalendarDays.Count); 
-                var calendarDay = calendar.CalendarDays[index];
-                calendarDay.MorningSessionSport = sports[rand.Next(0,sports.Count)];
-                calendarDay.AfterNoonSessionSport = sports[rand.Next(0,sports.Count)];
+                // int index = rand.Next(0,calendar.CalendarDays.Count); 
+                var calendarDay = new CalendarDay(){
+                    MorningSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty,
+                    AfterNoonSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty
+                };
+                // = calendar.CalendarDays[index];
                 
-                calendarDay.MorningSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty;
-                calendarDay.AfterNoonSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty;
+                // calendarDay.MorningSessionSport = sports[rand.Next(0,sports.Count)];
+                // // calendarDay.AfterNoonSessionSport = sports[rand.Next(0,sports.Count)];
+
+                // calendarDay.MorningSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty;
+                // calendarDay.AfterNoonSessionSportId = sports[rand.Next(0,sports.Count)]?.Id ?? Guid.Empty;
 
                 return calendarDay;
             }).Result;

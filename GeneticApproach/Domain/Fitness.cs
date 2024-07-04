@@ -3,8 +3,7 @@ using GeneticSharp;
 
 namespace GeneticApproach.Domain
 {
-    internal class Fitness<T, Base> : IFitness
-    where T : IRandomGenerable<T>
+    internal class Fitness<T, Base> : IFitness where T: class
     {
         private readonly IEnumerable<BaseConstraint<Base>> _constraints;
         private readonly IChromosomeFactory<T, Base> _factory;
@@ -27,6 +26,10 @@ namespace GeneticApproach.Domain
                     myChromosome.ActiveConstraints.Add(f.Identifier);
                 return val;
             });
+            if(fitness < 20)
+            {
+                System.Console.WriteLine(fitness);
+            }
             return fitness * -1;
         }
     }

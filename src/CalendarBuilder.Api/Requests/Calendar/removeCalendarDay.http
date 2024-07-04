@@ -1,6 +1,6 @@
 @host=http://localhost:5020
 
-DELETE {{host}}/calendarDays
+DELETE {{host}}/calendars
 Content-Type: application/json
 
 {

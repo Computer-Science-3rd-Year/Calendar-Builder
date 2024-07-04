@@ -1,8 +1,6 @@
-using GeneticApproach.Extensions;
-
 namespace GeneticApproach.Domain
 {
-    public class GeneticConstraint<T> where T : IRandomGenerable<T>
+    public class GeneticConstraint<T> where T : class
     {
         private readonly Func<Chromosome<T>, double> _func;
         public string Identifier { get; private set; }

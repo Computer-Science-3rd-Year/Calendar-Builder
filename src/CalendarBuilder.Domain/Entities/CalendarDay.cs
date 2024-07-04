@@ -50,7 +50,6 @@ public class CalendarDay : BaseEntity
         yield return MorningSessionSportId; 
         
         yield return AfterNoonSessionSportId;
-        
     }
 }
 class CalendarDayCreateModel

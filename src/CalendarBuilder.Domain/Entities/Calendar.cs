@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 public class Calendar : BaseEntity
 {
+    public DateTime StartDate { get; set; }
+    public DateTime EndDate { get; set; }
     public List<CalendarDay> CalendarDays { get; set; } = new List<CalendarDay>();
     public CalendarStatus Status { get; set; }
     public Calendar()
@@ -29,7 +31,9 @@ public class Calendar : BaseEntity
                 Id = Guid.NewGuid(),
             });
         }
-    
+        
+        StartDate = model!.StartDate;
+        EndDate = model!.EndDate;
         Status = CalendarStatus.Initial;
         return (this as T)!;    
     }

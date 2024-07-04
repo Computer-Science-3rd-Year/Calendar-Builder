@@ -25,6 +25,11 @@ internal class Program
         }
 
         // app.UseHttpsRedirection();
+        app.UseCors(x => {
+                x.AllowAnyOrigin();
+                x.AllowAnyMethod();
+                x.AllowAnyHeader();
+            });
 
         app.UseRouting();
 

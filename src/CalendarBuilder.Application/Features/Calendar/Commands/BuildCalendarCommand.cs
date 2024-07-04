@@ -36,9 +36,9 @@ namespace CalendarBuilder.Application.Common.GenericCrud
             {
                 var next = solution.Solution[i].Value as CalendarDay; 
                 var day = calendar.CalendarDays[i]; 
-                day.MorningSessionSport = next?.MorningSessionSport; 
+                day.MorningSessionSport = null; 
                 day.MorningSessionSportId = next?.MorningSessionSportId; 
-                day.AfterNoonSessionSport = next?.AfterNoonSessionSport; 
+                day.AfterNoonSessionSport = null; 
                 day.AfterNoonSessionSportId = next?.AfterNoonSessionSportId; 
                 _context.CalendarDays.Update(day); 
             }
