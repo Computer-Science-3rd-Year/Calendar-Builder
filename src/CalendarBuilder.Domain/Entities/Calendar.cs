@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using CalendarBuilder.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +18,8 @@ public class Calendar : BaseEntity
         CalendarCreateModel model; 
         try {
             model = JsonSerializer.Deserialize<CalendarCreateModel>(createModel, new JsonSerializerOptions(){
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
             }) ?? throw new Exception();
         }catch{
             throw new Exception("Error casting from generic model to "+ GetType().Name+ " create model.");
@@ -43,7 +45,8 @@ public class Calendar : BaseEntity
         CalendarUpdateModel model; 
         try {
             model = JsonSerializer.Deserialize<CalendarUpdateModel>(updateModel, new JsonSerializerOptions(){
-                PropertyNameCaseInsensitive = true
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve
             }) ?? throw new Exception();
         }catch{
             throw new Exception("Error casting from generic model to "+ GetType().Name+ " update model.");
@@ -82,7 +85,7 @@ class CalendarCreateModel
 {
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
-    public List<CalendarDay> CalendarDays { get; set; } = new List<CalendarDay>();
+    // public List<CalendarDay> CalendarDays { get; set; } = new List<CalendarDay>();
 } 
 
 class CalendarUpdateModel

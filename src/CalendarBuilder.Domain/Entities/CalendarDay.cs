@@ -1,7 +1,11 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using CalendarBuilder.Domain.Common;
 public class CalendarDay : BaseEntity 
 {
+    [JsonIgnore]
+    public virtual Calendar Calendar { get; set; }
+    public virtual Guid CalendarId { get; set; }
     public Guid? MorningSessionSportId { get; set; }
     public Sport? MorningSessionSport { get; set; }
     public Guid? AfterNoonSessionSportId { get; set; }
