@@ -37,9 +37,9 @@ namespace CalendarBuilder.Application.Common.GenericCrud
                 var next = solution.Solution[i].Value as CalendarDay; 
                 var day = calendar.CalendarDays[i]; 
                 day.MorningSessionSport = null; 
-                day.MorningSessionSportId = next?.MorningSessionSportId; 
+                day.MorningSessionSportId = next?.MorningSessionSportId != Guid.Empty? next?.MorningSessionSportId : null; 
                 day.AfterNoonSessionSport = null; 
-                day.AfterNoonSessionSportId = next?.AfterNoonSessionSportId; 
+                day.AfterNoonSessionSportId = next?.AfterNoonSessionSportId != Guid.Empty? next?.AfterNoonSessionSportId : null; 
                 _context.CalendarDays.Update(day); 
             }
             calendar.Status = CalendarStatus.Completed; 
