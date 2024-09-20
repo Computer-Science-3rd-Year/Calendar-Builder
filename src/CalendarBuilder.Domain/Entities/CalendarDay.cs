@@ -5,6 +5,7 @@ public class CalendarDay : BaseEntity
 {
     [JsonIgnore]
     public virtual Calendar Calendar { get; set; }
+    public DateTime Date { get; set; }
     public virtual Guid CalendarId { get; set; }
     public Guid? MorningSessionSportId { get; set; }
     public Sport? MorningSessionSport { get; set; }

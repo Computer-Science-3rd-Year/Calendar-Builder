@@ -118,7 +118,6 @@ namespace CalendarBuilder.Infrastructure.Services
                                 }
                             }
                         }
-
                         return result; 
                     } 
                 )); 
@@ -141,7 +140,7 @@ namespace CalendarBuilder.Infrastructure.Services
                             if(item == con.SportId)
                                 count++;
                         }
-                        result = count == con.Quantity ? 0 : 20; 
+                        result = count == con.Quantity ? 0 : 200; 
                         return result;                        
                     } 
                 )); 

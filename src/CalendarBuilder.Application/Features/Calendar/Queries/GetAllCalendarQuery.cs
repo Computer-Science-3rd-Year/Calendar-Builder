@@ -30,8 +30,8 @@ namespace CalendarBuilder.Application.Features.Calendars.Queries
                 .Include(x => x.CalendarDays)
                     .ThenInclude(x => x.MorningSessionSport)
                 .Include(x => x.CalendarDays)
-                    .ThenInclude(x => x.AfterNoonSessionSport)
-                .ToListAsync(cancellationToken); 
+                    .ThenInclude(x => x.AfterNoonSessionSport)                
+                .ToListAsync(cancellationToken);   
             return result;            
         }
     }

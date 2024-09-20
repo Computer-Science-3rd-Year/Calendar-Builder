@@ -28,7 +28,7 @@ namespace GeneticApproach.Domain
             });
             if(fitness < 20)
             {
-                System.Console.WriteLine(fitness);
+                Console.WriteLine(fitness);
             }
             return fitness * -1;
         }

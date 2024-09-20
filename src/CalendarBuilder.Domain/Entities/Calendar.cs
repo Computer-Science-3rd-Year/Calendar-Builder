@@ -26,12 +26,15 @@ public class Calendar : BaseEntity
         }
 
         CalendarDays = new List<CalendarDay>();
+
         for (DateTime date = model.StartDate; date <= model.EndDate; date = date.AddDays(1))
         {
-            CalendarDays.Add(new CalendarDay
-            {
-                Id = Guid.NewGuid(),
-            });
+            CalendarDays.Add(
+                new CalendarDay{
+                    Id = Guid.NewGuid(),
+                    Date = date
+                }
+            );
         }
         
         StartDate = model!.StartDate;
