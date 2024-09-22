@@ -1,4 +1,4 @@
 public interface IGeneticApproachWrapper
 {
-    Task<IEnumerable<GeneticResults>> Evolution(Guid calendarId); 
+    Task<GeneticResults> Evolution(Guid calendarId); 
 }

@@ -6,12 +6,12 @@ namespace GeneticApproach
 {
     public interface IGeneticService<T, Base> where T : class 
     {
-        IEnumerable<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options, IChromosomeFactory<T, Base> factory, IRandomGenerableFactory<T> randomFactory);
+        Task<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options, IChromosomeFactory<T, Base> factory, IRandomGenerableFactory<T> randomFactory);
     }
 
     public class GeneticService<T, Base> : IGeneticService<T, Base> where T : class
     {
-        public IEnumerable<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options, IChromosomeFactory<T, Base> factory,  IRandomGenerableFactory<T> randomFactory)
+        public Task<GeneticResults> Evolution(IEnumerable<BaseConstraint<Base>> constraints, GeneticOptions options, IChromosomeFactory<T, Base> factory,  IRandomGenerableFactory<T> randomFactory)
         {
             var sampleController = new GeneticController<Base, T>(options.ChromosomeLength, constraints, 0, factory,randomFactory);
             sampleController.Initialize();
@@ -60,10 +60,15 @@ namespace GeneticApproach
             Console.WriteLine("Evolved.");
             Console.ResetColor();
             var best = ga.Population.BestChromosome;
-            yield return new GeneticResults()
-            {
-                Solution = best.GetGenes()
-            };
+
+            fitness.Evaluate(best);   
+
+            return Task.FromResult(
+                new GeneticResults()
+                {
+                    Solution = best.GetGenes()
+                }
+            );
         }
     }
 }

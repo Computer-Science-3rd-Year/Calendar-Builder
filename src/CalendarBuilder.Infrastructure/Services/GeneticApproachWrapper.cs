@@ -98,58 +98,32 @@ namespace CalendarBuilder.Infrastructure.Services
             List<BaseConstraint<Calendar>> cons = new List<BaseConstraint<Calendar>>();
 
             var coincidenceRestrictions = await _context.CoincidenceRestrictions
-                .Where(x => x.CalendarId == CalendarId && x.IsActive)
+                .Where(x => x.CalendarId == CalendarId)
                 .ToListAsync(cancellationToken); 
+            Console.WriteLine("Coincidence restrictions: "+ coincidenceRestrictions.Count);
 
             foreach (var con in coincidenceRestrictions)
             {
                 cons.Add(new BaseConstraint<Calendar>(con.Id.ToString(), 
-                    cal => {
-                        double result = 0;
-                        var list = cal.SportIds().ToList();
-
-                        for (int i = 0; i < list.Count; i++)
-                        {
-                            for (int j = i + 1; j < list.Count; j++)
-                            {
-                                if (list[i] == con.FirstSportId && list[j] == con.SecondSportId && Math.Abs(i - j) <= con.SessionsGap)
-                                {
-                                    result += 5;
-                                }
-                            }
-                        }
-                        return result; 
-                    } 
+                    cal => ConstrainsEvaluator.EvaluateCoincidence(cal,con)
                 )); 
             }
 
             var quantityRestrictions = await _context.QuantityRestrictions
-                .Where(x => x.CalendarId == CalendarId && x.IsActive)
+                .Where(x => x.CalendarId == CalendarId)
                 .ToListAsync(cancellationToken); 
-
+            Console.WriteLine("Quantity restrictions: "+ quantityRestrictions.Count);
             
             foreach (var con in quantityRestrictions)
             {
                 cons.Add(new BaseConstraint<Calendar>(con.Id.ToString(), 
-                    cal => {
-                        double result = 0;
-                        var count = 0 ; 
-                        var list = cal.SportIds().ToList();
-                        foreach (var item in list)
-                        {
-                            if(item == con.SportId)
-                                count++;
-                        }
-                        result = count == con.Quantity ? 0 : 200; 
-                        return result;                        
-                    } 
+                    cal => ConstrainsEvaluator.EvaluateQuantity(cal,con)
                 )); 
             }
-
             return cons;
         }
 
-        async Task<IEnumerable<GeneticResults>> IGeneticApproachWrapper.Evolution(Guid calendarId){
+        async Task<GeneticResults> IGeneticApproachWrapper.Evolution(Guid calendarId){
             this.CalendarId = calendarId; 
             var cons = await GetConstraints(default);  
             var fac = new CalendarFactory(_randomFactory); 
@@ -163,13 +137,49 @@ namespace CalendarBuilder.Infrastructure.Services
                 ChromosomeLength = calendar.CalendarDays.Count
             };
             
-            var list = base.Evolution(
+            var result = await base.Evolution(
                 cons,
                 options,
                 fac,
                 _randomFactory
             );
-            return list; 
+            return result; 
         } 
     }
+}
+
+
+static class ConstrainsEvaluator
+{
+    public  static double EvaluateQuantity(Calendar cal, QuantityRestriction con)
+    {
+        double result = 0;
+        var count = 0 ; 
+        var list = cal.SportIdsPartialSessions().ToList();
+        foreach (var item in list)
+        {
+            if(item == con.SportId)
+                count++;
+        }
+        result = count == con.Quantity ? 0 : 200; 
+        return result;                        
+    }
+
+    public  static double EvaluateCoincidence(Calendar cal, CoincidenceRestriction con)
+    {                    
+        double result = 0;
+        var list = cal.SportIdsPartialSessions().ToList();
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            for (int j = i + 1; j < list.Count; j++)
+            {
+                if (((list[i] == con.FirstSportId && list[j] == con.SecondSportId) || (list[i] == con.SecondSportId && list[j] == con.FirstSportId)) && Math.Abs(i - j) <= con.SessionsGap)
+                {
+                    result += 50;
+                }
+            }
+        }
+        return result;  
+    } 
 }

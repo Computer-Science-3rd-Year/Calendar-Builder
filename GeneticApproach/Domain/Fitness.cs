@@ -26,10 +26,6 @@ namespace GeneticApproach.Domain
                     myChromosome.ActiveConstraints.Add(f.Identifier);
                 return val;
             });
-            if(fitness < 20)
-            {
-                Console.WriteLine(fitness);
-            }
             return fitness * -1;
         }
     }

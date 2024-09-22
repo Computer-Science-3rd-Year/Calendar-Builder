@@ -56,6 +56,16 @@ public class CalendarDay : BaseEntity
         
         yield return AfterNoonSessionSportId;
     }
+
+    public void SetMorning(Guid? id){
+        this.MorningSessionSport = null; 
+        this.MorningSessionSportId = (id != null && id!=Guid.Empty)? id : null;  
+    }
+    
+    public void SetAfternoon(Guid? id){
+        this.AfterNoonSessionSport = null; 
+        this.AfterNoonSessionSportId = (id != null && id!=Guid.Empty)? id : null;  
+    }
 }
 class CalendarDayCreateModel
 {
