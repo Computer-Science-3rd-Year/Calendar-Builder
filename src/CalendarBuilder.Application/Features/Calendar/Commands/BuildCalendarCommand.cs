@@ -56,3 +56,8 @@ namespace CalendarBuilder.Application.Common.GenericCrud
         }
     }
 }
+/*
+    Disclaimer: this could be a lot more improved, but this version of entity framework reports a
+    bug for tracking multiple entities to be updated, so in order to find the simplest solution, 
+    we are just deleting old calendar days and creating new ones
+*/
