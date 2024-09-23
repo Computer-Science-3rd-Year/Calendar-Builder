@@ -2,14 +2,15 @@
 
 ## Introducción
 
-Este proyecto utiliza algoritmos genéticos para explorar un amplio espacio de soluciones, con el objetivo de generar un calendario que satisfaga un conjunto específico de restricciones relacionadas con los eventos a distribuir. 
+Este proyecto utiliza algoritmos genéticos para explorar un amplio espacio de soluciones, con el objetivo de generar un calendario que satisfaga un conjunto específico de restricciones relacionadas con los eventos a distribuir.
 
 ## Estructura del Proyecto
 
 El proyecto está organizado en dos carpetas principales:
 
 1. **`src`**: Contiene el código fuente del backend del proyecto, desarrollado en .NET.
-2. **`geneticAproach`**: Es un subproyecto en .NET que implementa un wrapper para el paquete GeneticSharp, facilitando el uso de algoritmos genéticos de manera general.
+2. **`geneticApproach`**: Es un subproyecto en .NET que implementa un wrapper para el paquete GeneticSharp, facilitando el uso de algoritmos genéticos de manera general.
+3. **`fitness`**: Contiene la aplicación frontend desarrollada en Flutter, que interactúa con el backend.
 
 ## Requisitos para la Ejecución
 
@@ -17,7 +18,7 @@ Para ejecutar el proyecto, es necesario cumplir con los siguientes requisitos:
 
 ### Base de Datos
 
-- **Instancia de PostgreSQL**: Se recomienda utilizar PostgreSQL con PostGIS (versión 13-3.1-alpine). 
+- **Instancia de PostgreSQL**: Se recomienda utilizar PostgreSQL con PostGIS (versión 13-3.1-alpine).
 - **Configuración**: Es esencial configurar la conexión a la base de datos en el archivo `appsettings.json`, que se encuentra en la ruta `src/*Api`.
 
 ### Alternativa con Docker
@@ -33,6 +34,20 @@ Si se prefiere, se puede utilizar Docker para levantar tanto la base de datos co
    ```
 
 Este comando iniciará la base de datos y el proyecto, exponiéndolos en los puertos configurados en el archivo `docker-compose.yml`.
+
+### Ejecución de la Aplicación Flutter
+
+Para ejecutar la aplicación frontend en Flutter, sigue estos pasos:
+
+1. Navega a la carpeta `fitness`.
+2. Asegúrate de tener Flutter instalado y configurado en tu entorno.
+3. Ejecuta el siguiente comando:
+
+   ```bash
+   flutter run
+   ```
+
+Esto iniciará la aplicación Flutter, permitiéndote interactuar con el backend y visualizar los calendarios generados.
 
 ## Conclusión
 
