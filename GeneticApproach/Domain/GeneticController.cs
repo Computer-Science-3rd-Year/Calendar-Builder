@@ -42,7 +42,11 @@ namespace GeneticApproach.Domain
 
         public override ITermination CreateTermination()
         {
-            return new FitnessThresholdTermination(_fitnessThresholdTermination);
+            return new OrTermination([
+                    new FitnessThresholdTermination(_fitnessThresholdTermination), 
+                    new TimeEvolvingTermination(TimeSpan.FromMinutes(5))
+                ]
+            );
         }
     }
 }
