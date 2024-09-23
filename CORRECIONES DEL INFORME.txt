@@ -1,0 +1,15 @@
+1- A simple vista, se ve que el informe está redactado por chatGPT.
+2- NO ES POSIBLE que la introducción y las conclusions (y la mayoría del informe) esté redactado en plecas, como si se estuviera enumerando características.
+3- Las referencias están mal, lo que se hace es, al poner algún concepto, Código, biblioteca, formula, etc., que se usó en otro trabajo o repositorio, se coloca un número; por ejemplo: "...en este trabajo se usó la línea 'print("Hello World!")'[1] para...", luego, en la parte de las referencias está:
+					REFERENCIAS
+			[1] J. Pérez, M. Fonseca, "Título del trabajo",...
+			[2] ...
+			.
+			.
+			.
+			[n] ...
+(la rectificación de las referencias también se nos dio en el informe de SRI)
+4- En ningún momento está explicado para qué es el proyecto: crear una app que ayude a confeccionar el calendario de los Juegos Caribe, los juegos universitarios de la Universidad de La Habana.
+5- Hay que explicar los detalles de implementación, qué se hizo en cada parte, poner imágenes de la app. En caso en que se hayan elegido algoritmos, estudios, fórmulas, conclusiones, conceptos, resultados de estudios, etc., de otros trabajos, se pone tal cual en el informe y al final se pone la referencia, como mismo aparece en el ejemplo del punto 3. Obviamente, si se tomaron varias cosas de un mismo trabajo o repositorio, por cada aspecto citado se coloca la referencia a dicho trabajo o repositorio.
+6- Las conclusiones deben dar respuesta a los objetivos que se plantean en la introducción.
+7- Se puede tener COMO GUIA el informe de Machado, que ya está revisado, con el objetivo de MINIMIZAR la cantidad de errores en este informe.
