@@ -1,65 +1,115 @@
-# Informe Científico
+# Informe de Optimización de Calendarios
 
-## Título del Informe
-Generación de Calendarios mediante Algoritmos Genéticos
+## Proyecto CalendarBuilder
 
-### Autor(es)
-Massiel Paz Otaño  
-Marlon Díaz Pérez  
-Albaro Suárez Valdes
+![Calendar](images/Calendar.png)
 
-### Fecha
-22 de septiembre de 2024
+## Autores:
 
----
+- **Massiel Paz Otaño** (C312) [@NinaSayers](https://github.com/NinaSayers)
+- **Marlon Díaz Pérez** (C312) [@MarlonDPerez](https://github.com/MarlonDPerez)
+- **Albaro Suárez Valdes** (C312) [@Albaros02](https://github.com/Albaros02)
 
-## Resumen
+## Índice
 
-Este informe presenta un proyecto innovador que utiliza algoritmos genéticos para la generación de calendarios que cumplen con un conjunto específico de restricciones asociadas a eventos. La lógica aplicada para generar los calendarios se basa en el diseño de calendarios de exámenes en la universidad, tal como se detalla en las referencias. Se implementó una solución en .NET, estructurando el código en dos componentes principales: el backend y un wrapper para el paquete GeneticSharp. Para la gestión de datos, se utilizó una base de datos PostgreSQL. Los resultados obtenidos indican que el enfoque basado en algoritmos genéticos permite una exploración eficiente del espacio de soluciones, logrando calendarios que satisfacen las restricciones establecidas. Se concluye que esta metodología representa una herramienta efectiva para la optimización en la planificación de eventos.
+- [Informe de Optimización de Calendarios](#informe-de-optimización-de-calendarios)
+  - [Proyecto CalendarBuilder](#proyecto-calendarbuilder)
+  - [Autores:](#autores)
+  - [Índice](#índice)
+  - [Introducción](#introducción)
+  - [Algoritmos de Optimización Aplicados](#algoritmos-de-optimización-aplicados)
+  - [Formulación del Problema y Restricciones](#formulación-del-problema-y-restricciones)
+    - [Datos de Entrada](#datos-de-entrada)
+    - [Pasos del Algoritmo Genético](#pasos-del-algoritmo-genético)
+  - [Librerías y Herramientas Usadas](#librerías-y-herramientas-usadas)
+    - [Principales Características](#principales-características)
+  - [Modo de Uso](#modo-de-uso)
+    - [Manual de Usuario](#manual-de-usuario)
+  - [Reporte Técnico](#reporte-técnico)
+  - [Conclusiones](#conclusiones)
+  - [Referencias](#referencias)
 
----
+## Introducción
 
-## 1. Introducción
+Este informe documenta el proceso de optimización de calendarios para eventos deportivos que involucran múltiples días, sesiones y restricciones específicas. El proyecto *CalendarBuilder* tiene como objetivo asignar deportes a lo largo de varios días, garantizando que se respeten todas las restricciones impuestas, como disponibilidad de recursos, preferencias y capacidades.
 
-- **Contexto**: La planificación de eventos presenta un problema complejo que implica múltiples restricciones, como disponibilidad de recursos, preferencias de los participantes y horarios. Los algoritmos genéticos se han demostrado efectivos en la optimización de problemas combinatorios, ofreciendo soluciones adaptativas a contextos cambiantes.
-- **Objetivos**: Este proyecto tiene como objetivo desarrollar un calendario que satisfaga las restricciones impuestas mediante el uso de algoritmos genéticos, optimizando la asignación de eventos.
-- **Hipótesis**: Se plantea que la implementación de algoritmos genéticos permitirá generar calendarios que cumplan con un mayor número de restricciones en comparación con métodos tradicionales de optimización.
+El problema incluye dos tipos de sesiones por día (mañana y tarde) y exige que las restricciones de coincidencia entre deportes se cumplan para maximizar la utilidad del calendario.
 
----
+## Algoritmos de Optimización Aplicados
 
-## 2. Metodología
+Para resolver este problema, se utilizó un enfoque basado en algoritmos genéticos similar a como se presenta en el estudio [2]. Dado el amplio espacio de búsqueda generado por la asignación de deportes a sesiones con múltiples restricciones, los algoritmos genéticos proporcionan una solución eficiente. Esta técnica es particularmente útil para encontrar soluciones óptimas en la planificación de recursos con restricciones complejas, como la asignación de deportes para los Juegos Caribe en un período determinado.
 
-- **Diseño del estudio**: Se llevó a cabo un estudio experimental para evaluar la eficacia de los algoritmos genéticos en la generación de calendarios.Estos estudios estan basados en lo que se expresa en el documento Diseño de Calendarios de Exámenes en la Universidad: Algoritmos Genéticos (ver enlance en referencias). 
-- **Población y muestra**: La población objetivo consiste en un conjunto de eventos con restricciones específicas, seleccionando una muestra representativa para el análisis.
-- **Instrumentos**: Se empleó el paquete GeneticSharp como base para la implementación de los algoritmos genéticos, junto con una base de datos PostgreSQL para almacenar los eventos y sus respectivas restricciones.
-- **Procedimiento**: Se desarrolló un backend en .NET y se creó un wrapper para facilitar el uso de GeneticSharp. Se configuró la base de datos y se realizaron pruebas para generar soluciones óptimas a través de los algoritmos genéticos.
+## Formulación del Problema y Restricciones
 
----
+### Datos de Entrada
 
-## 3. Resultados
+Los datos de entrada para el problema de optimización del calendario son los siguientes:
 
-- Se generaron múltiples calendarios, cada uno cumpliendo con diferentes configuraciones de restricciones.
-- Los resultados indican que el uso de algoritmos genéticos permitió una exploración eficaz del espacio de soluciones, logrando resultados óptimos en un tiempo razonable, destacando la capacidad del sistema para adaptarse a diferentes conjuntos de restricciones.
+1. **Días del Evento**: Intervalo de tiempo del evento deportivo.
+2. **Deportes Disponibles**: Lista de deportes a programar.
+3. **Restricciones de Coincidencia**: Definen qué deportes no pueden coincidir en el mismo rango de sesiones predefinido.
+4. **Cantidad de Sesiones**: Número de sesiones por día que deben ser ocupadas por cada deporte.
 
----
+### Pasos del Algoritmo Genético
 
-## 4. Discusión
+1. **Población Inicial**:
+   - Se generan múltiples soluciones iniciales de forma aleatoria, donde cada solución es un calendario que cumple mínimamente las restricciones.
 
-- **Resultados**: En la mayoría de los casos analizados, la aplicación logró proporcionar soluciones aceptadas y alineadas con las restricciones establecidas. Es importante destacar que el tiempo dedicado a la búsqueda de soluciones fue acotado, considerando que algunas configuraciones de restricciones pueden no permitir soluciones viables.
-- **Comparación con estudios previos**: En comparación con investigaciones anteriores en planificación de eventos, este enfoque ofrece una solución más dinámica y adaptable, superando limitaciones de metodologías tradicionales.
-- **Limitaciones**: Las principales limitaciones incluyen la dependencia de la calidad de las restricciones definidas y el tamaño del espacio de búsqueda, lo que puede afectar la capacidad del algoritmo para encontrar soluciones.
-- **Implicaciones**: Los resultados sugieren que esta metodología es aplicable a otros problemas de optimización en diversas áreas, como la logística y la programación de recursos, lo que abre oportunidades para futuras investigaciones.
+2. **Evaluación de Fitness**:
+   - Cada solución se evalúa mediante una función de fitness que mide el grado de cumplimiento de las restricciones. Algunos de los criterios incluyen:
+     - Respetar las restricciones de coincidencia.
+     - Asignar los deportes de acuerdo con el número de sesiones requerido por cada uno.
 
----
+3. **Selección**:
+   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo.
 
-## 5. Conclusiones
+4. **Cruce (Crossover)**:
+   - Las soluciones seleccionadas se combinan para generar nuevas soluciones. El cruce mezcla partes de dos calendarios, creando descendientes que heredan características de ambos.
 
-- La implementación de algoritmos genéticos en la generación de calendarios permite cumplir de manera efectiva con un conjunto complejo de restricciones.
-- Se recomienda investigar la integración de otros métodos de optimización para mejorar los resultados, así como extender las funcionalidades del proyecto para incluir nuevas restricciones y escenarios.
+5. **Mutación**:
+   - Se introducen modificaciones aleatorias en las soluciones para explorar nuevas combinaciones y evitar quedar atrapados en soluciones subóptimas. Esto puede incluir reasignar un deporte a una sesión diferente.
 
----
+6. **Evaluación y Evolución**:
+   - Las nuevas soluciones generadas se reevalúan y el proceso se repite durante varias generaciones hasta encontrar una solución que cumpla con la mayoría de las restricciones, o hasta alcanzar un límite de tiempo predefinido.
 
-## 6. Referencias
+7. **Solución Final**:
+   - Tras varias iteraciones, el algoritmo devuelve la mejor solución: un calendario que respeta tantas restricciones como sea posible dentro del marco de tiempo establecido.
 
-- **Diseño de Calendarios de Exámenes en la Universidad: Algoritmos Genéticos**. Departamento de Economía Aplicada, Universidad de Burgos. [Enlace](https://www.asepelt.org/ficheros/File/Anales/2000%20-%20Oviedo/Trabajos/PDF/71.pdf)
-- **Repositorio de github de GeneticSharp**[Enlace](https://github.com/giacomelli/GeneticSharp)
+## Librerías y Herramientas Usadas
+
+Se utilizaron las siguientes herramientas para implementar y resolver el problema:
+
+- **GeneticSharp**: Biblioteca para la implementación de algoritmos genéticos en C# [1].
+- **.NET Core**: Para la creación del backend de la aplicación.
+- **Flutter**: Para el desarrollo del frontend.
+
+### Principales Características
+
+- Capacidad de manejar un alto número de restricciones, aumentando la complejidad del problema de manera escalable.
+- Eficiencia óptima en problemas de mediana escala.
+- Flexibilidad para agregar nuevas restricciones o modificar el modelo del calendario.
+
+## Modo de Uso
+
+### Manual de Usuario
+
+1. **Instalación**: Asegúrese de tener instaladas las librerías necesarias de .NET (`GeneticSharp`, `EntityFrameworkCore`, etc.).
+2. **Ejecución de la Aplicación**: Levante los contenedores de Docker con el siguiente comando desde la carpeta de `src`:
+   ```bash
+   docker-compose up
+   ```
+3. **Ejecución del Algoritmo**: Desde el frontend, cree un nuevo calendario, agregue los deportes y defina las restricciones. Posteriormente, ejecute el algoritmo para generar el calendario.
+4. **Interpretación de Resultados**: El resultado es un calendario de actividades que respeta las restricciones impuestas. Tenga en cuenta que la ejecución puede tardar algunos minutos (hasta un máximo de 5 minutos).
+
+## Reporte Técnico
+
+El algoritmo genético utilizado permite resolver el problema en tiempos computacionales razonables, considerando la cantidad de deportes y días en el evento. Sin embargo, a medida que aumentan las restricciones, la complejidad también incrementa, lo que puede requerir ajustes en los tiempos de ejecución o en la estructura del algoritmo para garantizar soluciones óptimas.
+
+## Conclusiones
+
+La optimización de calendarios es un problema intrínsecamente complejo debido a la necesidad de satisfacer múltiples restricciones. Los algoritmos genéticos se presentaron como una herramienta robusta para encontrar soluciones que respetan estas condiciones. Sin embargo, en casos de mayor escala, podría ser necesario recurrir a otras técnicas heurísticas para obtener soluciones aproximadas en tiempos más cortos.
+
+## Referencias
+
+[1] Giacomelli, "GeneticSharp: A C# Genetic Algorithm Library", Repositorio en GitHub, disponible en: https://github.com/giacomelli/GeneticSharp  
+[2] J. Pacheco, A. Aragón, "Diseño de Calendarios de Exámenes en la Universidad: Algoritmos Genéticos", Universidad de Burgos, 2000, disponible en: https://www.asepelt.org/ficheros/File/Anales/2000%20-%20Oviedo/Trabajos/PDF/71.pdf  
