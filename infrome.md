@@ -21,6 +21,11 @@
   - [Formulación del Problema y Restricciones](#formulación-del-problema-y-restricciones)
     - [Datos de Entrada](#datos-de-entrada)
     - [Pasos del Algoritmo Genético](#pasos-del-algoritmo-genético)
+  - [Formulación Matemática](#formulación-matemática)
+    - [Conjuntos y Parámetros:](#conjuntos-y-parámetros)
+    - [Variables de Decisión:](#variables-de-decisión)
+    - [Función Objetivo:](#función-objetivo)
+    - [Restricciones:](#restricciones)
   - [Librerías y Herramientas Usadas](#librerías-y-herramientas-usadas)
     - [Principales Características](#principales-características)
   - [Modo de Uso](#modo-de-uso)
@@ -74,6 +79,59 @@ Los datos de entrada para el problema de optimización del calendario son los si
 
 7. **Solución Final**:
    - Tras varias iteraciones, el algoritmo devuelve la mejor solución: un calendario que respeta tantas restricciones como sea posible dentro del marco de tiempo establecido.
+
+## Formulación Matemática
+
+La formulación matemática para este problema de optimización de asignación de deportes al calendario puede representarse como un problema de programación entera o programación lineal mixta (MILP). Los objetivos y restricciones clave se centran en la asignación de deportes a sesiones de manera que se respeten tanto las condiciones de aparición de cada deporte como las restricciones de coincidencia de deportes en sesiones cercanas.
+
+### Conjuntos y Parámetros:
+
+- \( $\mathcal{D} = \{1, 2, \dots, m\}$\): Conjunto de días del evento, donde \( m \) es el número total de días.
+- \( $\mathcal{S} = \{1, 2\}$ \): Conjunto de sesiones por día, que incluye la sesión de la mañana (1) y la tarde (2).
+- \( $\mathcal{K} = \{1, 2, \dots, n\}$ \): Conjunto de deportes que necesitan ser asignados a las sesiones, donde \( n \) es el número total de deportes.
+- \( k_i \): Número total de veces que el deporte \( i \in \mathcal{K} \) debe aparecer en las \( 2m \) sesiones.
+- \( $d_{ij}$ \): Mínima distancia permitida entre el deporte \( i \) y el deporte \( j \) en días. Especifica que el deporte \( i \) no puede estar asignado a sesiones en días \( t \) y \( q \) si \( $|t - q| < d_{ij}$ \).
+
+### Variables de Decisión:
+
+- \( $x_{i,t,s} \in \{0, 1\}$ \): Variable binaria que indica si el deporte \( i \) está asignado al día \( t \) y a la sesión \( s \). 
+  - \( $x_{i,t,s} = 1$\): Si el deporte \( i \) está programado en el día \( t \) en la sesión \( s \), de lo contrario es 0.
+
+### Función Objetivo:
+
+El objetivo principal es minimizar conflictos y respetar las restricciones de distancia entre deportes, buscando una distribución óptima.
+
+$
+\min \sum_{i,j \in \mathcal{K}} \sum_{t,q \in \mathcal{D}} \sum_{s,s' \in \mathcal{S}} c_{ijtqss'} \cdot x_{i,t,s} \cdot x_{j,q,s'}
+$
+
+Donde \( $c_{ijtqss'}$ \) es un parámetro que mide el costo o penalización si los deportes \( i \) y \( j \) violan la restricción de distancia en días o se colocan en las mismas o cercanas sesiones.
+
+### Restricciones:
+
+1. **Asignación total**:
+   Cada deporte debe aparecer exactamente \( $k_i$ \) veces en las \( 2m \) sesiones de los \( m \) días.
+
+$
+\sum_{t \in \mathcal{D}} \sum_{s \in \mathcal{S}} x_{i,t,s} = k_i \quad \forall i \in \mathcal{K}
+$
+
+2. **Restricción de sesiones**:
+   En cada sesión (mañana o tarde), solo puede asignarse un deporte.
+
+$
+\sum_{i \in \mathcal{K}} x_{i,t,s} \leq 1 \quad \forall t \in \mathcal{D}, s \in \mathcal{S}
+$
+
+3. **Restricción de distancia**:
+   Para cada par de deportes \( i, j \) que tienen una restricción de distancia mínima \( $d_{ij}$ \), se debe garantizar que no aparezcan en días \( t \) y \( q \) donde \( $|t - q| < d_{ij}$ \).
+
+$
+x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, |t - q| < d_{ij}, \forall s, s' \in \mathcal{S}
+$
+
+Esto asegura que los deportes \( i \) y \( j \) no estén asignados en días demasiado cercanos según su restricción.
+
 
 ## Librerías y Herramientas Usadas
 
