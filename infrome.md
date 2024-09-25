@@ -21,13 +21,13 @@
   - [Algoritmos de Optimización Aplicados](#algoritmos-de-optimización-aplicados)
   - [Formulación del Problema y Restricciones](#formulación-del-problema-y-restricciones)
     - [Datos de Entrada](#datos-de-entrada)
-    - [Pasos del Algoritmo Genético](#pasos-del-algoritmo-genético)
+    - [Pasos del Algoritmo Genético \[1\]](#pasos-del-algoritmo-genético-1)
   - [Formulación Matemática](#formulación-matemática)
     - [Conjuntos y Parámetros:](#conjuntos-y-parámetros)
     - [Variables de Decisión:](#variables-de-decisión)
     - [Función Objetivo:](#función-objetivo)
     - [Restricciones:](#restricciones)
-  - [Librerías y Herramientas Usadas](#librerías-y-herramientas-usadas)
+  - [Bibliotecas y Herramientas Usadas](#bibliotecas-y-herramientas-usadas)
     - [Principales Características](#principales-características)
   - [Modo de Uso](#modo-de-uso)
     - [Manual de Usuario](#manual-de-usuario)
@@ -60,7 +60,7 @@ Los datos de entrada para el problema de optimización del calendario son los si
 3. **Restricciones de Coincidencia**: Definen qué deportes no pueden coincidir en el mismo rango de sesiones predefinido (por ejemplo: si entre el football y el baseball deben haber 3 sesiones, no pueden programarse una competencia de football y otra de baseball en 2 días consecutivos o el mismo día. Es importante tener en cuenta que cada día cuenta con 2 sesiones).
 4. **Cantidad de Sesiones**: Número de sesiones por día que deben ser ocupadas por cada deporte.
 
-### Pasos del Algoritmo Genético
+### Pasos del Algoritmo Genético [1]
 
 1. **Población Inicial**:
    - Se generan múltiples soluciones iniciales de forma aleatoria, donde cada solución es un calendario que cumple mínimamente las restricciones.
@@ -71,7 +71,7 @@ Los datos de entrada para el problema de optimización del calendario son los si
      - Asignar los deportes de acuerdo con el número de sesiones requerido por cada uno.
 
 3. **Selección**:
-   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo [1].
+   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo.
 
 4. **Cruce (Crossover)**:
    - Las soluciones seleccionadas se combinan para generar nuevas soluciones. El cruce mezcla partes de dos calendarios, creando descendientes que heredan características de ambos.
@@ -130,7 +130,7 @@ $x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q 
 Esto asegura que los deportes \( i \) y \( j \) no estén asignados en días demasiado cercanos según su restricción.
 
 
-## Librerías y Herramientas Usadas
+## Bibliotecas y Herramientas Usadas
 
 Se utilizaron las siguientes herramientas para implementar y resolver el problema:
 
