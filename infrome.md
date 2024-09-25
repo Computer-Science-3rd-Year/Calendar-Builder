@@ -1,6 +1,6 @@
 # Informe de Optimización de Calendarios
 
-## Proyecto CalendarBuilder
+## Proyecto Planficación del cronograma de deportes en los juegos Caribe
 
 ![Calendar](images/Calendar.png)
 
@@ -13,10 +13,11 @@
 ## Índice
 
 - [Informe de Optimización de Calendarios](#informe-de-optimización-de-calendarios)
-  - [Proyecto CalendarBuilder](#proyecto-calendarbuilder)
+  - [Proyecto Planficación del cronograma de deportes en los juegos Caribe](#proyecto-planficación-del-cronograma-de-deportes-en-los-juegos-caribe)
   - [Autores:](#autores)
   - [Índice](#índice)
   - [Introducción](#introducción)
+  - [Planificación del Cronograma de Deportes en los Juegos Caribe: Optimización con Algoritmos Genéticos](#planificación-del-cronograma-de-deportes-en-los-juegos-caribe-optimización-con-algoritmos-genéticos)
   - [Algoritmos de Optimización Aplicados](#algoritmos-de-optimización-aplicados)
   - [Formulación del Problema y Restricciones](#formulación-del-problema-y-restricciones)
     - [Datos de Entrada](#datos-de-entrada)
@@ -36,9 +37,13 @@
 
 ## Introducción
 
-Este informe documenta el proceso de optimización de calendarios para eventos deportivos que involucran múltiples días, sesiones y restricciones específicas. El proyecto *CalendarBuilder* tiene como objetivo asignar deportes a lo largo de varios días, garantizando que se respeten todas las restricciones impuestas, como disponibilidad de recursos, preferencias y capacidades.
+## Planificación del Cronograma de Deportes en los Juegos Caribe: Optimización con Algoritmos Genéticos
 
-El problema incluye dos tipos de sesiones por día (mañana y tarde) y exige que las restricciones de coincidencia entre deportes se cumplan para maximizar la utilidad del calendario.
+La organización eficiente de eventos deportivos de gran escala, como los Juegos Caribe (juegos deportivos de la Universidad de La Habana), presenta un desafío complejo. La planificación de un cronograma que satisfaga las necesidades de múltiples deportes, las limitaciones de tiempo y las restricciones de recursos requiere una solución sistemática y optimizada. La ausencia de herramientas digitales para este propósito en la Universidad de La Habana, organizadora de los Juegos Caribe, dificulta la planificación manual, imponiendo una carga significativa en el proceso. 
+
+Este informe explora el desarrollo del proyecto *CalendarBuilder*, una aplicación que emplea algoritmos genéticos para optimizar la planificación del cronograma deportivo en los Juegos Caribe. El proyecto busca resolver el problema de asignar deportes a sesiones específicas en días determinados, cumpliendo con restricciones como la disponibilidad de recursos, preferencias y capacidades. 
+
+El problema se caracteriza por la existencia de dos tipos de sesiones diarias (mañana y tarde), lo que exige que las restricciones de coincidencia entre deportes se cumplan para maximizar la utilidad del calendario. El uso de algoritmos genéticos, capaces de explorar soluciones complejas, permite encontrar soluciones óptimas para este problema, lo que facilita la organización de los Juegos Caribe y libera a la Universidad de La Habana de la compleja tarea de realizar una planificación manual.
 
 ## Algoritmos de Optimización Aplicados
 
@@ -50,9 +55,9 @@ Para resolver este problema, se utilizó un enfoque basado en algoritmos genéti
 
 Los datos de entrada para el problema de optimización del calendario son los siguientes:
 
-1. **Días del Evento**: Intervalo de tiempo del evento deportivo.
+1. **Días del Evento**: Intervalo de tiempo del evento deportivo (día de inicio de los Juegos Caribe, y día de culminación).
 2. **Deportes Disponibles**: Lista de deportes a programar.
-3. **Restricciones de Coincidencia**: Definen qué deportes no pueden coincidir en el mismo rango de sesiones predefinido.
+3. **Restricciones de Coincidencia**: Definen qué deportes no pueden coincidir en el mismo rango de sesiones predefinido (por ejemplo: si entre el football y el baseball deben haber 3 sesiones, no pueden programarse una competencia de football y otra de baseball en 2 días consecutivos o el mismo día. Es importante tener en cuenta que cada día cuenta con 2 sesiones).
 4. **Cantidad de Sesiones**: Número de sesiones por día que deben ser ocupadas por cada deporte.
 
 ### Pasos del Algoritmo Genético
@@ -66,7 +71,7 @@ Los datos de entrada para el problema de optimización del calendario son los si
      - Asignar los deportes de acuerdo con el número de sesiones requerido por cada uno.
 
 3. **Selección**:
-   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo.
+   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo [1].
 
 4. **Cruce (Crossover)**:
    - Las soluciones seleccionadas se combinan para generar nuevas soluciones. El cruce mezcla partes de dos calendarios, creando descendientes que heredan características de ambos.
@@ -101,9 +106,7 @@ La formulación matemática para este problema de optimización de asignación d
 
 El objetivo principal es minimizar conflictos y respetar las restricciones de distancia entre deportes, buscando una distribución óptima.
 
-$
-\min \sum_{i,j \in \mathcal{K}} \sum_{t,q \in \mathcal{D}} \sum_{s,s' \in \mathcal{S}} c_{ijtqss'} \cdot x_{i,t,s} \cdot x_{j,q,s'}
-$
+$\min \sum_{i,j \in \mathcal{K}} \sum_{t,q \in \mathcal{D}} \sum_{s,s' \in \mathcal{S}} c_{ijtqss'} \cdot x_{i,t,s} \cdot x_{j,q,s'}$
 
 Donde \( $c_{ijtqss'}$ \) es un parámetro que mide el costo o penalización si los deportes \( i \) y \( j \) violan la restricción de distancia en días o se colocan en las mismas o cercanas sesiones.
 
@@ -112,23 +115,17 @@ Donde \( $c_{ijtqss'}$ \) es un parámetro que mide el costo o penalización si 
 1. **Asignación total**:
    Cada deporte debe aparecer exactamente \( $k_i$ \) veces en las \( 2m \) sesiones de los \( m \) días.
 
-$
-\sum_{t \in \mathcal{D}} \sum_{s \in \mathcal{S}} x_{i,t,s} = k_i \quad \forall i \in \mathcal{K}
-$
+$\sum_{t \in \mathcal{D}} \sum_{s \in \mathcal{S}} x_{i,t,s} = k_i \quad \forall i \in \mathcal{K}$
 
 2. **Restricción de sesiones**:
    En cada sesión (mañana o tarde), solo puede asignarse un deporte.
 
-$
-\sum_{i \in \mathcal{K}} x_{i,t,s} \leq 1 \quad \forall t \in \mathcal{D}, s \in \mathcal{S}
-$
+$\sum_{i \in \mathcal{K}} x_{i,t,s} \leq 1 \quad \forall t \in \mathcal{D}, s \in \mathcal{S}$
 
 3. **Restricción de distancia**:
    Para cada par de deportes \( i, j \) que tienen una restricción de distancia mínima \( $d_{ij}$ \), se debe garantizar que no aparezcan en días \( t \) y \( q \) donde \( $|t - q| < d_{ij}$ \).
 
-$
-x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, |t - q| < d_{ij}, \forall s, s' \in \mathcal{S}
-$
+$x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, |t - q| < d_{ij}, \forall s, s' \in \mathcal{S}$
 
 Esto asegura que los deportes \( i \) y \( j \) no estén asignados en días demasiado cercanos según su restricción.
 
@@ -165,7 +162,8 @@ El algoritmo genético utilizado permite resolver el problema en tiempos computa
 
 ## Conclusiones
 
-La optimización de calendarios es un problema intrínsecamente complejo debido a la necesidad de satisfacer múltiples restricciones. Los algoritmos genéticos se presentaron como una herramienta robusta para encontrar soluciones que respetan estas condiciones. Sin embargo, en casos de mayor escala, podría ser necesario recurrir a otras técnicas heurísticas para obtener soluciones aproximadas en tiempos más cortos.
+La aplicación *CalendarBuilder* demuestra la eficacia de los algoritmos genéticos para optimizar la planificación de eventos deportivos complejos como los Juegos Caribe. El sistema genera cronogramas que cumplen con todas, o en su defecto, la mayoría de las restricciones, incluyendo duración del evento, deportes que competirán,restricciones de coincidencia entre deportes, y cantidad de sesiones por día que deben ser ocupadas por cada deporte. La aplicación ofrece un tiempo de ejecución máximo de 5 minutos, siendo eficiente para la mayoría de los escenarios. En casos de mayor escala, se recomienda explorar técnicas heurísticas adicionales para obtener soluciones aproximadas en menor tiempo. 
+*CalendarBuilder* representa una herramienta valiosa para la Universidad de La Habana, facilitando la organización de los Juegos Caribe y liberando a la institución de la laboriosa planificación manual.
 
 ## Referencias
 
