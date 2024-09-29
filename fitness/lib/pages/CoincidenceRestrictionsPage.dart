@@ -210,7 +210,7 @@ class _CoincidenceRestrictionsPageState
                     '${startDate.day}/${startDate.month}/${startDate.year} - ${endDate.day}/${endDate.month}/${endDate.year}';
                 return DropdownMenuItem<String>(
                   value: calendar['id'],
-                  child: Text('${calendar['calendarName']} - $dateRange'),
+                  child: Text('$dateRange'),
                 );
               }).toList(),
               decoration: InputDecoration(labelText: 'Calendar'),

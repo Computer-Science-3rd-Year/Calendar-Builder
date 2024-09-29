@@ -145,9 +145,9 @@ class _QuantityRestrictionsPageState extends State<QuantityRestrictionsPage> {
                     '${startDate.day}/${startDate.month}/${startDate.year} - ${endDate.day}/${endDate.month}/${endDate.year}';
                 return DropdownMenuItem<String>(
                   value: calendar['id'],
-                  child: Text('${calendar['calendarName']} - $dateRange'),
+                  child: Text('$dateRange'),
                 );
-              }).toList(),
+              }).toList(),  
               decoration: InputDecoration(labelText: 'Calendar'),
             ),
             SizedBox(height: 16),

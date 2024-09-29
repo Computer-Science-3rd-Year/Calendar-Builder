@@ -18,6 +18,10 @@
   - [Índice](#índice)
   - [Introducción](#introducción)
   - [Planificación del Cronograma de Deportes en los Juegos Caribe: Optimización con Algoritmos Genéticos](#planificación-del-cronograma-de-deportes-en-los-juegos-caribe-optimización-con-algoritmos-genéticos)
+  - [Estado del Arte en la Construcción de Calendarios con Restricciones](#estado-del-arte-en-la-construcción-de-calendarios-con-restricciones)
+    - [Técnicas Híbridas en la Solución de Problemas de Calendarización](#técnicas-híbridas-en-la-solución-de-problemas-de-calendarización)
+    - [Algoritmos Genéticos en la Construcción de Calendarios](#algoritmos-genéticos-en-la-construcción-de-calendarios)
+    - [Justificación del Uso de Algoritmos Genéticos en el Proyecto](#justificación-del-uso-de-algoritmos-genéticos-en-el-proyecto)
   - [Algoritmos de Optimización Aplicados](#algoritmos-de-optimización-aplicados)
   - [Formulación del Problema y Restricciones](#formulación-del-problema-y-restricciones)
     - [Datos de Entrada](#datos-de-entrada)
@@ -31,6 +35,7 @@
     - [Principales Características](#principales-características)
   - [Modo de Uso](#modo-de-uso)
     - [Manual de Usuario](#manual-de-usuario)
+    - [Ejemplos de Ejecución](#ejemplos-de-ejecución)
   - [Reporte Técnico](#reporte-técnico)
   - [Conclusiones](#conclusiones)
   - [Referencias](#referencias)
@@ -44,6 +49,32 @@ La organización eficiente de eventos deportivos de gran escala, como los Juegos
 Este informe explora el desarrollo del proyecto *CalendarBuilder*, una aplicación que emplea algoritmos genéticos para optimizar la planificación del cronograma deportivo en los Juegos Caribe. El proyecto busca resolver el problema de asignar deportes a sesiones específicas en días determinados, cumpliendo con restricciones como la disponibilidad de recursos, preferencias y capacidades. 
 
 El problema se caracteriza por la existencia de dos tipos de sesiones diarias (mañana y tarde), lo que exige que las restricciones de coincidencia entre deportes se cumplan para maximizar la utilidad del calendario. El uso de algoritmos genéticos, capaces de explorar soluciones complejas, permite encontrar soluciones óptimas para este problema, lo que facilita la organización de los Juegos Caribe y libera a la Universidad de La Habana de la compleja tarea de realizar una planificación manual.
+
+## Estado del Arte en la Construcción de Calendarios con Restricciones
+
+La construcción de calendarios con restricciones ha sido objeto de investigación durante décadas debido a su complejidad y su amplia aplicabilidad en diversos campos como la planificación académica, la asignación de turnos laborales, y la organización de eventos. El problema consiste en asignar eventos a intervalos de tiempo respetando un conjunto de restricciones, como la disponibilidad de recursos, la no superposición de eventos, las prioridades o secuencias entre actividades, entre otras.
+
+Los métodos tradicionales para abordar este problema incluyen técnicas como **programación lineal entera (ILP)**, **búsqueda exhaustiva**, y **backtracking**. Si bien estas técnicas pueden ser efectivas para instancias pequeñas o moderadamente complejas, su desempeño se degrada rápidamente cuando se aplican a problemas de mayor escala o con un número elevado de restricciones. A medida que los problemas de calendarización se vuelven más complejos, ha habido una transición hacia el uso de técnicas más avanzadas como los **algoritmos evolutivos**, los **métodos de satisfacción de restricciones (CSP)**, y más recientemente, las **técnicas híbridas**.
+
+### Técnicas Híbridas en la Solución de Problemas de Calendarización
+
+Las técnicas híbridas combinan enfoques diversos para resolver los problemas de calendarización, aprovechando las fortalezas de cada método y compensando sus debilidades. Estas técnicas suelen integrar algoritmos de búsqueda local, heurísticas, y métodos de optimización, a menudo junto con métodos basados en inteligencia artificial. La combinación de técnicas clásicas con enfoques más recientes, como el **machine learning**, permite crear calendarios de manera más eficiente y adaptativa, especialmente en escenarios dinámicos o donde las restricciones pueden cambiar en tiempo real.
+
+El enfoque híbrido es ideal para resolver problemas de gran escala, ya que puede reducir el tiempo de búsqueda al mezclar componentes de optimización global (como la programación lineal o la optimización por restricciones) con algoritmos de búsqueda local o evolutiva. Esto es especialmente útil cuando el problema presenta múltiples restricciones complejas y variables interdependientes, como suele ser el caso en los calendarios.
+
+### Algoritmos Genéticos en la Construcción de Calendarios
+
+En este contexto, los **algoritmos genéticos** (AG) han ganado popularidad debido a su capacidad para abordar problemas altamente complejos y no lineales, como la construcción de calendarios. Los AG son una clase de algoritmos evolutivos que se inspiran en los principios de la selección natural de Darwin, utilizando un enfoque basado en poblaciones para generar soluciones. A través de operadores como la **selección**, el **cruce (crossover)** y la **mutación**, los AG exploran grandes espacios de búsqueda para encontrar soluciones que cumplan con las restricciones del problema.
+
+Los algoritmos genéticos son particularmente adecuados para problemas de calendarización con múltiples restricciones debido a su capacidad para adaptarse a la **naturaleza combinatoria** del problema. A diferencia de los métodos deterministas como la programación lineal, los AG pueden encontrar soluciones subóptimas rápidamente y mejorar la calidad de las soluciones a través de generaciones sucesivas. Esto los hace efectivos para escenarios donde se necesita flexibilidad y capacidad de búsqueda en un espacio de soluciones altamente multidimensional.
+
+### Justificación del Uso de Algoritmos Genéticos en el Proyecto
+
+En este proyecto, se utiliza un algoritmo genético para la construcción de calendarios debido a su capacidad para manejar múltiples restricciones y su flexibilidad frente a la complejidad del problema. Al tratarse de un problema que involucra la asignación de eventos a intervalos de tiempo y la satisfacción de diversas restricciones, los algoritmos genéticos ofrecen una forma efectiva de explorar el espacio de soluciones sin verse limitados por la necesidad de una estructura lineal o simplificada. Además, los AG pueden adaptarse a **escenarios dinámicos** donde las restricciones cambian con el tiempo, lo que es esencial en la planificación de calendarios de eventos.
+
+El enfoque basado en algoritmos genéticos permite que el sistema se beneficie de su capacidad de **explorar diversas soluciones** simultáneamente, aumentando las posibilidades de encontrar un calendario que maximice la satisfacción de las restricciones sin necesidad de recurrir a una búsqueda exhaustiva. En este contexto, los algoritmos genéticos ofrecen un enfoque robusto y escalable para problemas de gran envergadura, donde las soluciones óptimas pueden no ser triviales o fáciles de encontrar usando métodos tradicionales.
+
+Por lo tanto, el uso de algoritmos genéticos en este proyecto no solo está alineado con las tendencias actuales en la resolución de problemas de calendarización con restricciones, sino que también aporta un enfoque flexible y eficiente que puede adaptarse a la complejidad creciente del problema.
 
 ## Algoritmos de Optimización Aplicados
 
@@ -66,24 +97,28 @@ Los datos de entrada para el problema de optimización del calendario son los si
    - Se generan múltiples soluciones iniciales de forma aleatoria, donde cada solución es un calendario que cumple mínimamente las restricciones.
 
 2. **Evaluación de Fitness**:
-   - Cada solución se evalúa mediante una función de fitness que mide el grado de cumplimiento de las restricciones. Algunos de los criterios incluyen:
-     - Respetar las restricciones de coincidencia.
-     - Asignar los deportes de acuerdo con el número de sesiones requerido por cada uno.
+   - Cada calendario se evalúa mediante una función de fitness personalizada que mide qué tan bien se cumplen las restricciones. Los principales criterios de evaluación incluyen:
+     - Satisfacer las restricciones de coincidencia entre eventos.
+     - Asignar correctamente los deportes según el número de sesiones requeridas para cada uno.
+     - Optimizar la distribución de eventos, minimizando conflictos y maximizando la eficiencia en el uso de recursos.
+   - La función de fitness está diseñada para recibir cualquier tipo de objeto, siempre que pueda convertirse en un "Cromosoma" y viceversa. Esto aporta una mayor flexibilidad en la definición de las restricciones, permitiendo adaptaciones dinámicas en función de las necesidades del problema.   
 
-3. **Selección**:
-   - Se eligen las mejores soluciones basadas en su fitness para la siguiente generación utilizando el método de selección por torneo.
+3. **Selección (Elite Selection)**:
+   - Se aplica el método de **selección elitista**, donde un porcentaje de las mejores soluciones, basadas en su fitness, se selecciona directamente para la siguiente generación. Esto garantiza que las soluciones de mayor calidad se mantengan en el proceso evolutivo.
 
-4. **Cruce (Crossover)**:
-   - Las soluciones seleccionadas se combinan para generar nuevas soluciones. El cruce mezcla partes de dos calendarios, creando descendientes que heredan características de ambos.
+4. **Cruce (Uniform Crossover)**:
+   - Las soluciones seleccionadas se combinan utilizando el **cruce uniforme**, en el cual los genes (sesiones y eventos del calendario) se seleccionan aleatoriamente de ambos padres para crear descendientes. Este método permite una mayor diversidad genética, ya que cada hijo puede heredar características de cualquiera de los dos progenitores de manera equitativa.
 
-5. **Mutación**:
-   - Se introducen modificaciones aleatorias en las soluciones para explorar nuevas combinaciones y evitar quedar atrapados en soluciones subóptimas. Esto puede incluir reasignar un deporte a una sesión diferente.
+5. **Mutación (Uniform Mutation)**:
+   - Se introduce **mutación uniforme**, en la que cualquier parte del calendario (como la asignación de un deporte a una sesión) tiene una pequeña probabilidad de ser modificada. Este tipo de mutación ayuda a explorar nuevas soluciones y previene que el algoritmo quede atrapado en óptimos locales.
 
 6. **Evaluación y Evolución**:
-   - Las nuevas soluciones generadas se reevalúan y el proceso se repite durante varias generaciones hasta encontrar una solución que cumpla con la mayoría de las restricciones, o hasta alcanzar un límite de tiempo predefinido.
+   - Las nuevas soluciones generadas se vuelven a evaluar utilizando la función de fitness. El proceso de selección, cruce y mutación se repite a lo largo de varias generaciones, mejorando progresivamente la calidad de las soluciones encontradas hasta que se cumplan la mayoría de las restricciones, o se alcance un criterio de parada como el número máximo de iteraciones o un límite de tiempo.
 
 7. **Solución Final**:
-   - Tras varias iteraciones, el algoritmo devuelve la mejor solución: un calendario que respeta tantas restricciones como sea posible dentro del marco de tiempo establecido.
+   - Al finalizar las iteraciones, el algoritmo devuelve la mejor solución encontrada: un calendario optimizado que respeta tantas restricciones como sea posible dentro de los límites definidos. La calidad de la solución depende de los parámetros de fitness, la diversidad genética introducida por la mutación y el cruce, y la presión selectiva ejercida a lo largo del proceso.
+
+Este enfoque permite que el algoritmo genético, utilizando técnicas de selección elitista, cruce y mutación uniforme, y una evaluación de fitness personalizada, produzca una solución que equilibre la flexibilidad en la búsqueda de soluciones y el respeto de las restricciones establecidas.
 
 ## Formulación Matemática
 
@@ -155,6 +190,52 @@ Se utilizaron las siguientes herramientas para implementar y resolver el problem
    ```
 3. **Ejecución del Algoritmo**: Desde el frontend, cree un nuevo calendario, agregue los deportes y defina las restricciones. Posteriormente, ejecute el algoritmo para generar el calendario.
 4. **Interpretación de Resultados**: El resultado es un calendario de actividades que respeta las restricciones impuestas. Tenga en cuenta que la ejecución puede tardar algunos minutos (hasta un máximo de 5 minutos).
+
+### Ejemplos de Ejecución
+
+Consideremos un calendario de 5 días, en el cual deseamos distribuir los deportes Fútbol, Tenis y Pelota, con las siguientes restricciones:
+
+**Ajuste del rango de tiempo del calendario**
+![](./img/setting_calendar.png "Ajuste del rango de tiempo del calendario")
+
+**Ajuste de las restricciones de cantidad**
+![](./img/setting_calendar_restriction_quantity.png "Ajuste de las restricciones de cantidad")
+
+Restricciones de cantidad:
+- 3 sesiones dedicadas a Fútbol.
+- 3 sesiones dedicadas a Pelota.
+- 2 sesiones dedicadas a Tenis.
+
+**Restricciones de coincidencia:**
+Suponiendo que muchos jugadores del equipo de Pelota también forman parte del equipo de Fútbol, se decide que estos dos deportes no deben coincidir el mismo día. Esto se traduce en una restricción donde entre las sesiones de Fútbol y Pelota debe haber al menos 1 sesión de diferencia.
+
+**Ajuste de las restricciones de coincidencia**
+![](./img/setting_calendar_restriction_coincidence.png "Ajuste de las restricciones de coincidencia")
+
+Restricción de coincidencia:
+- Fútbol y Pelota deben estar separados por una sesión.
+
+**Tiempo de ejecución para obtener la solución**
+![](./img/generation_time_first_example.png "Tiempo de ejecución para obtener la solución")
+
+En otro escenario, si modificamos las restricciones y añadimos que ninguna de las dos sesiones diarias puede incluir tanto Fútbol como Pelota al mismo tiempo, se agregan las siguientes restricciones:
+
+- Fútbol debe distanciarse de sí mismo por al menos 1 sesión.
+- Pelota debe distanciarse de sí misma por al menos 1 sesión.
+
+Dado que solo tenemos 5 días en el calendario y 6 eventos por distribuir, no es posible satisfacer todas las restricciones. 
+
+El algoritmo finaliza por límite de tiempo, entregando una solución en la que se incumple una restricción.
+
+**Tiempo de ejecución, finalización por límite excedido**
+![](./img/generation_time_2_example_tle.png "Tiempo de ejecución, finalización por límite excedido")
+
+Un último ejemplo, aunque fácilmente resoluble de manera intuitiva, representa un desafío mayor para el algoritmo. Consideremos dos deportes, Fútbol y Pelota, con la restricción de que Fútbol aparezca 2(n-1) veces y Pelota solo 1 vez, donde *n* es el número de días en el calendario, y además deben estar distanciados por una sesión.
+
+La solución sería distribuir Fútbol en los primeros *n-1* días y reservar la última sesión del último día para Pelota.
+
+Observamos que, en este tipo de casos, el algoritmo puede tardar entre 3 y 4 minutos en encontrar la solución, o incluso llegar al límite de 5 minutos sin haberla encontrado.
+
 
 ## Reporte Técnico
 

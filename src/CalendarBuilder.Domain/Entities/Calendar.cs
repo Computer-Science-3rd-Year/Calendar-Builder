@@ -69,7 +69,8 @@ public class Calendar : BaseEntity
     }
     public IEnumerable<Guid?> SportIdsPartialSessions()
     {
-        foreach (var day in CalendarDays)
+        var sortedCalendarDays = CalendarDays.OrderBy(x => x.Date).ToList();  
+        foreach (var day in sortedCalendarDays)
         {
             yield return day.MorningSessionSportId; 
             yield return day.AfterNoonSessionSportId; 

@@ -69,6 +69,14 @@ class CalendarDetailsPage extends StatelessWidget {
     final startDateFormatted = startDate != null ? formatter.format(startDate.toUtc()) : 'N/A';
     final endDateFormatted = endDate != null ? formatter.format(endDate.toUtc()) : 'N/A';
 
+    // Ordenar los días del calendario por la fecha
+    final List<dynamic> calendarDays = calendar['calendarDays'] ?? [];
+    calendarDays.sort((a, b) {
+      DateTime dateA = DateTime.parse(a['date']);
+      DateTime dateB = DateTime.parse(b['date']);
+      return dateA.compareTo(dateB); // Orden ascendente
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalles del Calendario'),
@@ -94,9 +102,9 @@ class CalendarDetailsPage extends StatelessWidget {
             const SizedBox(height: 8.0),
             Expanded(
               child: ListView.builder(
-                itemCount: (calendar['calendarDays'] as List<dynamic>?)?.length ?? 0,
+                itemCount: calendarDays.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final day = (calendar['calendarDays'] as List<dynamic>)[index] as Map<String, dynamic>?;
+                  final day = calendarDays[index] as Map<String, dynamic>?;
                   print('Day $index: $day');
                   if (day == null) {
                     return const ListTile(
@@ -107,11 +115,10 @@ class CalendarDetailsPage extends StatelessWidget {
                   final date = day['date']?.toString() ?? 'N/A';
                   final morningSession = day['morningSessionSport'] != null ? day['morningSessionSport']['name']?.toString() ?? 'N/A' : 'N/A';
                   final afternoonSession = day['afterNoonSessionSport'] != null ? day['afterNoonSessionSport']['name']?.toString() ?? 'N/A' : 'N/A';
-                  final fullSession = day['fullSessionSport'] != null ? day['fullSessionSport']['name']?.toString() ?? 'N/A' : 'N/A';
 
                   return ListTile(
                     title: Text('Día: $date'),
-                    subtitle: Text('Mañana: $morningSession\nTarde: $afternoonSession\nCompleta: $fullSession'),
+                    subtitle: Text('Mañana: $morningSession\nTarde: $afternoonSession\n'),
                   );
                 },
               ),
