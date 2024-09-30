@@ -129,7 +129,7 @@ La formulación matemática para este problema de optimización de asignación d
 - \( $\mathcal{D} = \{1, 2, \dots, m\}$\): Conjunto de días del evento, donde \( m \) es el número total de días.
 - \( $\mathcal{S} = \{1, 2\}$ \): Conjunto de sesiones por día, que incluye la sesión de la mañana (1) y la tarde (2).
 - \( $\mathcal{K} = \{1, 2, \dots, n\}$ \): Conjunto de deportes que necesitan ser asignados a las sesiones, donde \( n \) es el número total de deportes.
-- \( k_i \): Número total de veces que el deporte \( i \in \mathcal{K} \) debe aparecer en las \( 2m \) sesiones.
+- \( $k_i$ \): Número total de veces que el deporte \( i $\in \mathcal{K}$ \) debe aparecer en las \( 2m \) sesiones.
 - \( $d_{ij}$ \): Mínima distancia permitida entre el deporte \( i \) y el deporte \( j \) en días. Especifica que el deporte \( i \) no puede estar asignado a sesiones en días \( t \) y \( q \) si \( $|t - q| < d_{ij}$ \).
 
 ### Variables de Decisión:
