@@ -158,9 +158,9 @@ $\sum_{t \in \mathcal{D}} \sum_{s \in \mathcal{S}} x_{i,t,s} = k_i \quad \forall
 $\sum_{i \in \mathcal{K}} x_{i,t,s} \leq 1 \quad \forall t \in \mathcal{D}, s \in \mathcal{S}$
 
 3. **Restricción de distancia**:
-   Para cada par de deportes \( i, j \) que tienen una restricción de distancia mínima \( $d_{ij}$ \), se debe garantizar que no aparezcan en días \( t \) y \( q \) donde \( $|t - q| < d_{ij}$ \).
+   Para cada par de deportes \( i, j \) que tienen una restricción de distancia mínima \( $d_{ij}$ \), se debe garantizar que no aparezcan en días \( t \) y \( q \) donde $q < t$ y \( $t - q < d_{ij}$ \).
 
-$x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, |t - q| < d_{ij}, \forall s, s' \in \mathcal{S}$
+$x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, q < t, t - q < d_{ij}, \forall s, s' \in \mathcal{S}$
 
 Esto asegura que los deportes \( i \) y \( j \) no estén asignados en días demasiado cercanos según su restricción.
 
