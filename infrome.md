@@ -44,7 +44,7 @@
 
 ## Planificación del Cronograma de Deportes en los Juegos Caribe: Optimización con Algoritmos Genéticos
 
-La organización eficiente de eventos deportivos de gran escala, como los Juegos Caribe (juegos deportivos de la Universidad de La Habana), presenta un desafío complejo. La planificación de un cronograma que satisfaga las necesidades de múltiples deportes, las limitaciones de tiempo y las restricciones de recursos requiere una solución sistemática y optimizada. La ausencia de herramientas digitales para este propósito en la Universidad de La Habana, organizadora de los Juegos Caribe, dificulta la planificación manual, imponiendo una carga significativa en el proceso. 
+La organización eficiente de eventos deportivos de gran escala, como los Juegos Caribe (juegos deportivos de la Universidad de La Habana), presenta un desafío complejo. Crear un calendario para este evento donde hay disímiles deportes y en consecuencia un gran cantidad de participantes y lugares donde se realizan los mismos puede ser una tarea mas que tediosa y complicada pues se deben tener en cuenta muchos aspectos a la hora de hacerla, como por ejemplo los deportes que se realizan en el mismo terreno no deben coincidir en horarios, si una pesona participa en varios deportes estos tampoco deben coincidir, el tiempo del que disponen los participantes pues recordemos que estos son estudiantes y por tanto deben asistir a clases, entre otros específicos. La ausencia de herramientas digitales para este propósito en la Universidad de La Habana, organizadora de los Juegos Caribe, dificulta la planificación manual, imponiendo una carga significativa en el proceso. 
 
 Este informe explora el desarrollo del proyecto *CalendarBuilder*, una aplicación que emplea algoritmos genéticos para optimizar la planificación del cronograma deportivo en los Juegos Caribe. El proyecto busca resolver el problema de asignar deportes a sesiones específicas en días determinados, cumpliendo con restricciones como la disponibilidad de recursos, preferencias y capacidades. 
 
@@ -137,11 +137,13 @@ La formulación matemática para este problema de optimización de asignación d
 - \( $x_{i,t,s} \in \{0, 1\}$ \): Variable binaria que indica si el deporte \( i \) está asignado al día \( t \) y a la sesión \( s \). 
   - \( $x_{i,t,s} = 1$\): Si el deporte \( i \) está programado en el día \( t \) en la sesión \( s \), de lo contrario es 0.
 
+- \( $Y_{ijtqss'} \in \{0, 1\}$ \): Variable binaria que es 1 si $x_{i,t,s}$ es 1 y $x_{j,q,s'}$ es 1, en otro caso es 0
+
 ### Función Objetivo:
 
 El objetivo principal es minimizar conflictos y respetar las restricciones de distancia entre deportes, buscando una distribución óptima.
 
-$\min \sum_{i,j \in \mathcal{K}} \sum_{t,q \in \mathcal{D}} \sum_{s,s' \in \mathcal{S}} c_{ijtqss'} \cdot x_{i,t,s} \cdot x_{j,q,s'}$
+$\min \sum_{i,j \in \mathcal{K}} \sum_{t,q \in \mathcal{D}} \sum_{s,s' \in \mathcal{S}} c_{ijtqss'} \cdot Y_{ijtqss'}$
 
 Donde \( $c_{ijtqss'}$ \) es un parámetro que mide el costo o penalización si los deportes \( i \) y \( j \) violan la restricción de distancia en días o se colocan en las mismas o cercanas sesiones.
 
@@ -164,6 +166,12 @@ $x_{i,t,s} + x_{j,q,s'} \leq 1 \quad \forall i, j \in \mathcal{K}, \forall t, q 
 
 Esto asegura que los deportes \( i \) y \( j \) no estén asignados en días demasiado cercanos según su restricción.
 
+4. **Restricciones de linealidad**
+   $Y_{ijtqss'} \leq x_{i,t,s} \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, \forall s, s' \in \mathcal{S}$
+
+   $Y_{ijtqss'} \leq x_{j,q,s'} \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, \forall s, s' \in \mathcal{S}$
+
+   $Y_{ijtqss'} \ge x_{i,t,s} + x_{j,q,s'} - 1  \quad \forall i, j \in \mathcal{K}, \forall t, q \in \mathcal{D}, \forall s, s' \in \mathcal{S}$
 
 ## Bibliotecas y Herramientas Usadas
 
